@@ -17,6 +17,9 @@ print_error() {
   exit 1
 }
 
+# Arguments
+CODE_BIN=${2:-codium}
+
 vscode-marketplace-api() {
   local extension_id="$1"
   [[ -z "$extension_id" ]] && read -r -p "Please enter an extensionID: " extension_id
@@ -32,7 +35,7 @@ vscode-marketplace-api() {
 }
 
 validate_dependencies() {
-  local deps=("jq" "curl" "codium")
+  local deps=("jq" "curl" "$CODE_BIN")
   for dep in "${deps[@]}"; do
     if ! command -v "$dep" &>/dev/null; then
       print_error "Missing required dependency: $dep"
@@ -82,7 +85,7 @@ download_and_install_vsix() {
   print_info "Downloading $vsix_file to $output_path"
   mkdir -p "$output_dir"
   curl -fsSL# "$vsix_package_url" -o "$output_path" || print_error "Failed to download VSIX file: $vsix_file"
-  codium --install-extension "$output_path" --force || print_error "Failed to install $vsix_file from $output_path"
+  "$CODE_BIN" --install-extension "$output_path" --force || print_error "Failed to install $vsix_file from $output_path"
   print_success "Downloaded $vsix_file from $output_path"
   print_success "Installed $vsix_file from $output_path"
 }
