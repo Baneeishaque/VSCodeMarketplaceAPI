@@ -5,6 +5,7 @@ set -euo pipefail
 # License      : MIT License
 # Author       : https://github.com/zx0r
 # Description  : VSCode Marketplace API, download and install extensions
+# Usage        : ./script.sh <extensionID> [code-binary]
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # Notification functions
